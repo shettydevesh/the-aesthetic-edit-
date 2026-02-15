@@ -1,26 +1,236 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── User Provided Royal Blue Palette ── */
+  --background: #FFF9F0;
+  /* Warm Cream */
+  --foreground: #1a3a7a;
+  /* Deepest Royal Blue Shade */
+  --accent: #EFBF04;
+  /* Gold */
+  --charcoal: #4A4A4A;
+  /* Secondary text */
+
+  /* Royal Blue Scheme */
+  --royal-blue: #305CDE;
+  /* Primary */
+  --royal-gold: #EFBF04;
+  /* Gold (same as accent) */
+
+  /* Tints */
+  --blue-tint: #ABBDF2;
+  /* Lightest */
+  --blue-mid: #597CE5;
+  /* Mid Tint */
+  --blue-light: #456CE1;
+  /* Light Primary */
+
+  /* Shades */
+  --blue-shade: #1D43B5;
+  /* Dark */
+  --blue-deep: #214DCF;
+  /* Deep */
+
+  /* Tones */
+  --blue-tone: #516FAE;
+  /* Muted */
+
+  --beige-soft: #ABBDF2;
+  /* Legacy alias → Blue Tint */
 }
 
-@theme inline {
-  --color-background: var(--background);
+@theme {
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-lato);
+  --color-accent: var(--accent);
+  --color-beige-soft: var(--beige-soft);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-royal-blue: var(--royal-blue);
+  --color-royal-gold: var(--royal-gold);
+  --color-blue-tint: var(--blue-tint);
+  --color-blue-mid: var(--blue-mid);
+  --color-blue-light: var(--blue-light);
+  --color-blue-shade: var(--blue-shade);
+  --color-blue-deep: var(--blue-deep);
+  --color-blue-tone: var(--blue-tone);
+  --color-charcoal: var(--charcoal);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base ── */
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .serif {
+    @apply font-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Utilities ── */
+@layer utilities {
+  .card-shadow {
+    box-shadow: 0 4px 30px rgba(48, 92, 222, 0.06);
+    @apply transition-all duration-500;
+  }
+
+  .card-shadow:hover {
+    box-shadow: 0 12px 40px rgba(48, 92, 222, 0.12);
+    @apply -translate-y-2;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom Scrollbar — Royal Blue tint */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-royal-blue/30 rounded-full hover:bg-royal-blue/50 transition-colors;
+  }
+}
+
+/* ── Section Reveal (Scroll-Linked) ── */
+.section-reveal {
+  view-timeline-name: --reveal;
+  animation-name: fade-in-up;
+  animation-fill-mode: both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 30%;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Premium Float Animation ── */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 7s ease-in-out 2s infinite;
+}
+
+/* ── Gold Shimmer Text Effect ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg,
+      var(--royal-gold) 0%,
+      #FFF8DC 40%,
+      var(--royal-gold) 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Gradient Shift (Hero) ── */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ── Pulse Glow ── */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(48, 92, 222, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(48, 92, 222, 0.25);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Hide scrollbar for horizontal scroll containers on mobile */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

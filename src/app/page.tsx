@@ -1,65 +1,71 @@
-import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import AestheticMatrix from "@/components/AestheticMatrix";
+import CafeGrid from "@/components/CafeGrid";
+import RadarComparison from "@/components/RadarComparison";
+import VibeMatcher from "@/components/VibeMatcher";
+import BookCafeCuratorial from "@/components/BookCafeCuratorial";
 
 export default function Home() {
+  const locations = ["Bandra West", "Juhu Tara Road", "Chapel Road", "Union Park", "Ranwar Village", "Versova"];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+
+      {/* Location Ticker — Marquee Animation */}
+      <section className="py-5 border-y border-royal-blue/8 bg-royal-blue/[0.02] overflow-hidden">
+        <div className="animate-marquee flex whitespace-nowrap gap-16 text-[10px] uppercase tracking-[0.4em] font-bold text-royal-blue/20">
+          {[...locations, ...locations, ...locations].map((loc, i) => (
+            <span key={i} className="flex items-center gap-4">
+              <span className="w-1 h-1 bg-royal-gold/30 rounded-full" />
+              {loc}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <BookCafeCuratorial />
+
+      {/* Soft gradient transition */}
+      <div className="h-24 bg-gradient-to-b from-background via-royal-blue/[0.02] to-background" />
+
+      <AestheticMatrix />
+
+      {/* Soft gradient transition */}
+      <div className="h-16 bg-gradient-to-b from-background via-royal-gold/[0.02] to-background" />
+
+      <VibeMatcher />
+
+      {/* Soft gradient transition */}
+      <div className="h-16 bg-gradient-to-b from-background via-royal-blue/[0.02] to-background" />
+
+      <CafeGrid />
+
+      {/* Soft gradient transition */}
+      <div className="h-16 bg-gradient-to-b from-background via-royal-gold/[0.02] to-background" />
+
+      <RadarComparison />
+
+      {/* Footer */}
+      <footer className="py-20 bg-royal-blue text-background text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-royal-gold rounded-full blur-[150px]" />
+          <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-blue-tint rounded-full blur-[120px]" />
+        </div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="font-serif text-3xl font-bold text-royal-gold mb-6">The Aesthetic Edit.</div>
+          <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-background/40 mb-8">
+            Curated with love · Mumbai Edition · 2026
           </p>
+          <div className="flex justify-center gap-8 text-xs font-bold text-background/50">
+            <a href="#" className="hover:text-royal-gold transition-colors duration-300">Privacy</a>
+            <a href="#" className="hover:text-royal-gold transition-colors duration-300">How We Pick</a>
+            <a href="#" className="hover:text-royal-gold transition-colors duration-300">Contact</a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
